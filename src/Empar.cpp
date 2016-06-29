@@ -159,7 +159,7 @@ void run(std::string tree_filename, std::string fasta_filename, std::string mode
 
     // Read the counts.
     std::cout << "Reading fasta file:" << std::endl;
-    read_counts(T, data, fasta_filename);
+    data = read_counts(T, fasta_filename);
     std::cout << std::endl;
   }
 

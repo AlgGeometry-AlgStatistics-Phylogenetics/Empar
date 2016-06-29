@@ -1,9 +1,9 @@
 /*
  *  alignment.h
- *  
+ *
  *  Created by Ania M. Kedzierska on 11/11/11.
- *  Copyright 2011 Politecnic University of Catalonia, Center for Genomic Regulation.  This is program can be redistributed, modified or else as given by the terms of the GNU General Public License. 
- *  
+ *  Copyright 2011 Politecnic University of Catalonia, Center for Genomic Regulation.  This is program can be redistributed, modified or else as given by the terms of the GNU General Public License.
+ *
  */
 
 #ifndef __ALIGNMENT_H__
@@ -19,7 +19,7 @@
 // as a vector of letters (seq). The letters are stored as an integer between
 // 0 and nalpha-1. In the vector alpha there is a translation to actual
 // characters (A,C,G,T for example) used for printing.
-struct Alignment {   
+struct Alignment {
   long nspecies;                       // number of species
   long nalpha;                         // number of letters
   long len;                            // length of the sequence
@@ -46,7 +46,7 @@ void save_alignment(Alignment &al, std::string const &fname);
 void add_pseudocounts(double epsilon, Counts &data);
 void add_pseudocounts(double epsilon, std::vector<double> &data, long N);
 void get_counts(Alignment &align, Counts &data);
-void read_counts(Tree &T, Counts &data, std::string fname, long nalpha=4);
+Counts read_counts(Tree &T, std::string fname, long nalpha=4);
 void print_counts(Counts &data, std::ostream &s=std::cout);
 
 #endif
