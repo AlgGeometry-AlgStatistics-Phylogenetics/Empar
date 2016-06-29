@@ -90,6 +90,11 @@ void save_sigmas_to(const std::string& fname,
     fcov.close();
 }
 
+bool data_and_tree_matches(const Tree& T, const Counts& data)
+{
+  return T.nalpha == data.nalpha && T.nleaves == data.nspecies;
+}
+
 void run(std::string tree_filename, std::string fasta_filename, std::string model_name) {
   Model Mod;                 // The model
   Counts data;               // the counts
@@ -159,8 +164,7 @@ void run(std::string tree_filename, std::string fasta_filename, std::string mode
     std::cout << std::endl;
   }
 
-  // Check whether the data and the tree match.
-  if (T.nalpha != data.nalpha || T.nleaves != data.nspecies) {
+  if (!data_and_tree_matches(T, data)) {
     throw std::invalid_argument("The order of the sequences or their number and the phylogenetic tree do not match.");
   }
 
