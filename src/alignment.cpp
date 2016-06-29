@@ -89,13 +89,14 @@ bool match_species(Tree &T, std::string *s, int ns, std::vector<long> &d) {
 // Then formats the data as we want and stores it into the Counts data structure.
 // Uses the order of the leaves on Tree for encoding the states.
 
-void read_counts(Tree &T, Counts &data, std::string fname, long nalpha) {
+Counts read_counts(Tree &T, std::string fname, long nalpha) {
   int i;
   unsigned int j;
   long id;
   State sta, sta2;
   std::string str;
   std::vector<long> d;
+  Counts data;
 
   // The number of letters is fixed to 4 in read_fasta.
   if (nalpha != 4) {
@@ -141,6 +142,8 @@ void read_counts(Tree &T, Counts &data, std::string fname, long nalpha) {
   for (i=0; i < T.nleaves; i++) {
     data.species[i] = T.names[i];
   }
+
+  add_pseudocounts(0.01, data);
 }
 
 

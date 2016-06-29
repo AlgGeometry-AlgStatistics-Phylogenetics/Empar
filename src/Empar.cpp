@@ -72,10 +72,11 @@ void save_sigmas_to(const std::string& fname,
 {
     std::fstream fcov;
     fcov.precision(15);
+
     fcov.open(fname.c_str(), std::ios::out);
     if (!fcov.is_open()) {
       std::cout << "Could not open file: covariances.dat" << std::endl;
-      // TODO: exit
+      return;
     }
 
     for (auto row : cov_matrix) {
@@ -87,6 +88,11 @@ void save_sigmas_to(const std::string& fname,
     fcov << std::endl;
 
     fcov.close();
+}
+
+bool data_and_tree_matches(const Tree& T, const Counts& data)
+{
+  return T.nalpha == data.nalpha && T.nleaves == data.nspecies;
 }
 
 void run(std::string tree_filename, std::string fasta_filename, std::string model_name) {
@@ -153,13 +159,11 @@ void run(std::string tree_filename, std::string fasta_filename, std::string mode
 
     // Read the counts.
     std::cout << "Reading fasta file:" << std::endl;
-    read_counts(T, data, fasta_filename);
-    add_pseudocounts(0.01, data);
+    data = read_counts(T, fasta_filename);
     std::cout << std::endl;
   }
 
-  // Check whether the data and the tree match.
-  if (T.nalpha != data.nalpha || T.nleaves != data.nspecies) {
+  if (!data_and_tree_matches(T, data)) {
     throw std::invalid_argument("The order of the sequences or their number and the phylogenetic tree do not match.");
   }
 
