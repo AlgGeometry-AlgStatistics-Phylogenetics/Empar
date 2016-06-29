@@ -141,6 +141,8 @@ void read_counts(Tree &T, Counts &data, std::string fname, long nalpha) {
   for (i=0; i < T.nleaves; i++) {
     data.species[i] = T.names[i];
   }
+
+  add_pseudocounts(0.01, data);
 }
 
 
