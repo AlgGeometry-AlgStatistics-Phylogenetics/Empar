@@ -72,10 +72,11 @@ void save_sigmas_to(const std::string& fname,
 {
     std::fstream fcov;
     fcov.precision(15);
+
     fcov.open(fname.c_str(), std::ios::out);
     if (!fcov.is_open()) {
       std::cout << "Could not open file: covariances.dat" << std::endl;
-      // TODO: exit
+      return;
     }
 
     for (auto row : cov_matrix) {
